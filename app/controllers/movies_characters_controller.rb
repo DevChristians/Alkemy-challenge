@@ -9,7 +9,7 @@ class MoviesCharactersController < ApplicationController
 		@movie = Movie.find(params[:movie_id])
 		@character = Character.find(params[:character_id])
 		if @movie.characters << @character
-	    	render json: @movie.characters, status: :created, location: @movie
+	    	render json: @movie.to_json(:include => [:characters]), status: :created, location: @movie
 	    else
 	    	render json: @movie.character.errors, status: :unprocessable_entity
 	    end

@@ -3,14 +3,29 @@ class CharactersController < ApplicationController
 
   # GET /characters
   def index
-    @characters = Character.all
-
-    render json: @characters
+    if request.query_string.present?
+      if params[:name]
+        @character = Character.where(name: params[:name])
+        render json: @character.to_json(:include => [:movies])
+      elsif params[:age]
+        @character = Character.where(age: params[:age])
+        render json: @character.to_json(:include => [:movies])
+      elsif params[:weight]
+        @character = Character.where(weight: params[:weight])
+        render json: @character.to_json(:include => [:movies])
+      elsif params[:movies]
+        @movies = Movie.find(params[:movies])
+        render json: @movies.characters.to_json(:include => [:movies])
+      end
+    else
+      @characters = Character.all
+      render json: @characters   
+    end
   end
 
   # GET /characters/1
   def show
-    render json: [@character, @character.movies]
+    render json: @character.to_json(:include => [:movies])
   end
 
   # POST /characters

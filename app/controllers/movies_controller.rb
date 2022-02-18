@@ -3,14 +3,26 @@ class MoviesController < ApplicationController
 
   # GET /movies
   def index
-    @movies = Movie.all
-
-    render json: @movies
+    if request.query_string.present?
+      if params[:title]
+        @movie = Movie.where(title: params[:title])
+        render json: @movie.to_json(:include => [:genres, :characters])
+      elsif params[:genre]
+        @genre = Genre.find(params[:genre])
+        render json: @genre.movies.to_json(:include => [:genres, :characters])
+      elsif params[:order]
+        @movie = Movie.order(creation_date: params[:order])
+        render json: @movie.to_json(:include => [:genres, :characters])
+      end
+    else
+      @movies = Movie.all
+      render json: @movies
+    end
   end
 
   # GET /movies/1
   def show
-    render json: [@movie, @movie.genres, @movie.characters]
+    render json: @movie.to_json(:include => [:genres, :characters])
   end
 
   # POST /movies

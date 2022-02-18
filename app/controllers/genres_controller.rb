@@ -10,7 +10,7 @@ class GenresController < ApplicationController
 
   # GET /genres/1
   def show
-    render json: [@genre, @genre.movies]
+    render json: @genre.to_json(:include => [:movies])
   end
 
   # POST /genres

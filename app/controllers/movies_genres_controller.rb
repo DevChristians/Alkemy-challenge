@@ -8,7 +8,7 @@ class MoviesGenresController < ApplicationController
 		@movie = Movie.find(params[:movie_id])
 		@genre = Genre.find(params[:genre_id])
 		if @movie.genres << @genre
-	    	render json: @movie.genres, status: :created, location: @movie
+	    	render json: @movie.to_json(:include => [:genres]), status: :created, location: @movie
 	    else
 	    	render json: @movie.genre.errors, status: :unprocessable_entity
 	    end
