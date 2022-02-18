@@ -46,3 +46,10 @@ group :development do
   # gem "spring"
 end
 
+#JWT
+gem "jwt"
+
+# Authentication
+gem "devise", "~> 4.8"
+
+gem "devise-jwt"
