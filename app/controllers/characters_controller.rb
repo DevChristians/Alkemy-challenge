@@ -1,4 +1,5 @@
 class CharactersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_character, only: %i[ show update destroy ]
 
   # GET /characters

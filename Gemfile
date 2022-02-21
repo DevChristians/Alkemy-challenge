@@ -46,10 +46,12 @@ group :development do
   # gem "spring"
 end
 
+gem 'letter_opener', group: :development
+
 #JWT
 gem "jwt"
 
 # Authentication
-gem "devise", "~> 4.8"
+gem "devise"
 
 gem "devise-jwt"

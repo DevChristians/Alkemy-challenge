@@ -1,5 +1,6 @@
 class MoviesCharactersController < ApplicationController
-
+	before_action :authenticate_user!
+	
 	def index
 		@movie = Movie.find(params[:movie_id])
 		render json: @movie.characters
